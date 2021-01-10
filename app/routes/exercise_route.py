@@ -42,10 +42,6 @@ class SingleExercise(Resource):
 class ExercisesWithCategories(Resource):
     """
     GET to this resource to get exercises with their categories
-
-    SELECT exercise_categories.cat_name FROM exercises
-    INNER JOIN exercise_categories ON exercises.exercise_name=exercise_categories.ex_name
-    WHERE exercises.exercise_name='Squat';
     """
     def get(self):
         result = ExerciseCategories.query.all()
