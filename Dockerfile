@@ -4,6 +4,7 @@ LABEL maintainer="Cameron Rosier <rosiercam@gmail.com>"
 
 WORKDIR /opt/workout-api
 COPY . ./
+COPY config.yaml ./
 
 RUN apk add --no-cache postgresql-libs && \
     apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
