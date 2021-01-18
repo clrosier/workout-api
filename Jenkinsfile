@@ -8,7 +8,7 @@ pipeline {
     stages { 
         stage('Checkout') { 
             steps { 
-                git 'https://github.com/YourGithubAccount/YourGithubRepository.git' 
+                git 'https://github.com/clrosier/workout-api.git' 
             }
         } 
         stage('Building Image') { 
