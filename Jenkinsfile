@@ -1,17 +1,37 @@
-pipeline {
-    environment {
-        registry = "clrosier/workout-api"
-        registryCredential = "dockerhub"
+pipeline { 
+    environment { 
+        registry = "clrosier/workout-api" 
+        registryCredential = 'dockerhub' 
+        dockerImage = '' 
     }
-    node("docker-agent") {
-        stages {
-            stage('Build Image') {
-                steps {
-                    script {
-                        docker.build registry + ":$BUILD_NUMBER"
-                    }
-                }
+    agent any 
+    stages { 
+        stage('Checkout') { 
+            steps { 
+                git 'https://github.com/YourGithubAccount/YourGithubRepository.git' 
             }
+        } 
+        stage('Building Image') { 
+           steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
         }
+        stage('Deploy Image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        } 
+        stage('Clean Up') { 
+            steps { 
+                sh "docker rmi $registry:$BUILD_NUMBER" 
+            }
+        } 
     }
 }
+
