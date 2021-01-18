@@ -17,7 +17,6 @@ def register_user(data):
             default="pbkdf2_sha256",
             pbkdf2_sha256__default_rounds=30000
     )
-
     # If username and email does not already exist
     if User.query.filter_by(username=data['username']).first() == None and User.query.filter_by(email=data['email']).first() == None:
         new_user = User(
