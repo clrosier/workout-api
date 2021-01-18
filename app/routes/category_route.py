@@ -5,9 +5,9 @@ from flask import jsonify
 from flask_restx import Resource, fields
 
 
-ns_category = api.namespace('Exercise Operations', description='Management of exercise categories')
+ns_category = api.namespace('categories', description='Management of exercise categories')
 
-@api.route('/categories')
+@ns_category.route('/')
 class Category(Resource):
     """
     GET to this resource returns all categories
@@ -23,7 +23,7 @@ class Category(Resource):
         pass
 
 
-@api.route('/categories/<string:cat_name>')
+@ns_category.route('/<string:cat_name>')
 class SingleCategory(Resource):
     """
     GET to this resource gets a single exercise

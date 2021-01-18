@@ -1,4 +1,4 @@
-from app import api, db
+from app import api
 from app.models.db_models.exercise_model import Exercises, ExerciseCategories
 from app.util.exercise_util import exercises_with_categories
 
@@ -6,9 +6,9 @@ from flask import jsonify
 from flask_restx import Resource, fields
 
 
-ns_exercise = api.namespace('Exercise Operations', description='Management of exercises')
+ns_exercise = api.namespace('exercises', description='Management of exercises')
 
-@api.route('/exercises')
+@ns_exercise.route('/')
 class Exercise(Resource):
     """
     GET to this resource returns all exercises
@@ -24,7 +24,8 @@ class Exercise(Resource):
         data = api.payload
 
 
-@api.route('/exercises/<string:ex_name>')
+
+@ns_exercise.route('/<string:ex_name>')
 class SingleExercise(Resource):
     """
     GET to this resource gets a single exercise
@@ -38,7 +39,7 @@ class SingleExercise(Resource):
         return jsonify(exercise)
 
 
-@api.route('/exercises/exercise_categories')
+@ns_exercise.route('/exercise_categories')
 class ExercisesWithCategories(Resource):
     """
     GET to this resource to get exercises with their categories

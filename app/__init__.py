@@ -6,8 +6,16 @@ from flask_cors import CORS
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
+authorizations = {
+    'Bearer Auth': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'Authorization'
+    },
+}
+
 app = Flask(__name__)
-api = Api(app)
+api = Api(app, security='Bearer Auth', authorizations=authorizations)
 
 CORS(app, resources={r'/*': {'origins': '*'}})
 
@@ -28,8 +36,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+from app.routes.user_route import ns_user
+from app.routes.exercise_route import ns_exercise
+from app.routes.category_route import ns_category
+
+for ns in [ns_user, ns_exercise, ns_category]:
+    api.add_namespace(ns)
+
 from app.routes.exercise_route import *
 from app.routes.category_route import *
+from app.routes.user_route import *
 
 
 # Start the service

@@ -1,0 +1,9 @@
+app:
+  auth:
+    SECRET_KEY: "MY_PRECIOUS"
+  db:
+    host: "postgres_ip_address_or_dns"
+    port: "postgres_port_(should_be_5432)"
+    name: "name_of_workout_db"
+    user: "svc_workout_app"
+    pass: "apple321"
