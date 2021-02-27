@@ -39,13 +39,15 @@ db = SQLAlchemy(app)
 from app.routes.user_route import ns_user
 from app.routes.exercise_route import ns_exercise
 from app.routes.category_route import ns_category
+from app.routes.program_route import ns_program
 
-for ns in [ns_user, ns_exercise, ns_category]:
+for ns in [ns_user, ns_exercise, ns_category, ns_program]:
     api.add_namespace(ns)
 
 from app.routes.exercise_route import *
 from app.routes.category_route import *
 from app.routes.user_route import *
+from app.routes.program_route import *
 
 
 # Start the service

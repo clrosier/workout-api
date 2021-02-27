@@ -93,6 +93,7 @@ def logout_user(request):
     }
 
     auth_header = request.headers.get('Authorization')
+    print(auth_header)
     if auth_header:
         auth_token = auth_header
     else:
@@ -100,7 +101,7 @@ def logout_user(request):
     
     if auth_token:
         resp = decode_auth_token(auth_token)
-        if isinstance(resp, str):
+        if isinstance(resp, int):
             blacklist_token = BlacklistToken(token=auth_token)
             try:
                 db.session.add(blacklist_token)

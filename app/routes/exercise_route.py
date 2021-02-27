@@ -1,5 +1,7 @@
 from app import api
 from app.models.db_models.exercise_model import Exercises, ExerciseCategories
+from app.models.api_models.exercise_model import exercise_model
+from app.controllers.exercise_controller import add_exercise
 from app.util.exercise_util import exercises_with_categories
 
 from flask import jsonify
@@ -17,12 +19,15 @@ class Exercise(Resource):
     def get(self):
         result = Exercises.query.all()
         exercises = [exercise.to_dict()['exercise_name'] for exercise in result]
+        print(exercises)
         return jsonify(exercises)
     
-
+    @api.expect(exercise_model)
     def post(self):
         data = api.payload
 
+        response = add_exercise(data)
+        return response['message'], response['status']
 
 
 @ns_exercise.route('/<string:ex_name>')
@@ -47,6 +52,5 @@ class ExercisesWithCategories(Resource):
     def get(self):
         result = ExerciseCategories.query.all()
         exercise_categories = [ex_cat.to_dict() for ex_cat in result]
-
         return jsonify(exercises_with_categories(exercise_categories))
 

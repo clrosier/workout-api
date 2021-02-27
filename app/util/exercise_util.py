@@ -1,12 +1,12 @@
 def exercises_with_categories(ex_cat):
-    exercises = {}
+    exercise_categories = {}
     for item in ex_cat:
-        if item['ex_name'] not in exercises:
-            exercises[item['ex_name']] = []
+        if item['cat_name'] not in exercise_categories:
+            exercise_categories[item['cat_name']] = []
     
-    for key, value in exercises.items():
+    for key, value in exercise_categories.items():
         for item in ex_cat:
-            if item['ex_name'] == key:
-                value.append(item['cat_name'])
+            if item['cat_name'] == key:
+                value.append(item['ex_name'])
     
-    return exercises
+    return exercise_categories

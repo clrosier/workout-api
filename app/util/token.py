@@ -20,7 +20,6 @@ def encode_auth_token(user_id):
 
 
 def decode_auth_token(auth_token):
-    print(auth_token)
     try:
         payload = jwt.decode(auth_token, app_config['app']['auth']['SECRET_KEY'], algorithms="HS256")
         return payload['sub']

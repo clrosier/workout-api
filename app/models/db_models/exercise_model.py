@@ -23,13 +23,12 @@ class Exercises(db.Model):
 
 class ExerciseCategories(db.Model):
     __tablename__ = "exercise_categories"
-    id = db.Column(db.Integer, primary_key=True)
-    ex_name = db.Column(db.String(30))
-    cat_name = db.Column(db.String(30))
+    ex_cat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    ex_name = db.Column(db.String(30), db.ForeignKey('exercises.exercise_name'))
+    cat_name = db.Column(db.String(30), db.ForeignKey('categories.category_name'))
 
 
-    def __init__(self, id, ex_name, cat_name):
-        self.id = id
+    def __init__(self, ex_name, cat_name):
         self.ex_name = ex_name
         self.cat_name = cat_name
     
