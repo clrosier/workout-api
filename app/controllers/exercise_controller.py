@@ -14,6 +14,7 @@ def add_exercise(data):
             exercise_description=data['exercise_description']
         )
         db.session.add(new_exercise)
+        db.session.commit()
         
         for category in data['exercise_categories']:
             print(category)
@@ -22,8 +23,8 @@ def add_exercise(data):
                 cat_name=category
             )
             db.session.add(new_exercise_category)
+            db.session.commit()
 
-        db.session.commit()
         response = {
             "status": 201,
             "message": "New exercise successfully added.",

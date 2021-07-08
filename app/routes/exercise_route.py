@@ -52,5 +52,6 @@ class ExercisesWithCategories(Resource):
     def get(self):
         result = ExerciseCategories.query.all()
         exercise_categories = [ex_cat.to_dict() for ex_cat in result]
+
         return jsonify(exercises_with_categories(exercise_categories))
 
